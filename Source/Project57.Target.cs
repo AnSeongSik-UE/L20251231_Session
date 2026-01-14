@@ -2,7 +2,7 @@
 
 using UnrealBuildTool;
 using System.Collections.Generic;
-
+	
 public class Project57Target : TargetRules
 {
 	public Project57Target(TargetInfo Target) : base(Target)

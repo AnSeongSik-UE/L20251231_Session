@@ -8,10 +8,12 @@ public class Project57 : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "AnimGraphRuntime", "NavigationSystem", "AIModule", "UMG", "OnlineSubsystem", "OnlineSubsystemUtils", "OnlineSubsystemSteam" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "AnimGraphRuntime", "NavigationSystem", "AIModule", "UMG", "OnlineSubsystem", "OnlineSubsystemUtils", "OnlineSubsystemSteam", "NetCore" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
+		SetupIrisSupport(Target);
+	
 		PublicIncludePaths.AddRange(new string[] { "Project57" });
 
 		// Uncomment if you are using Slate UI

@@ -11,7 +11,6 @@ public class Project57EditorTarget : TargetRules
 		DefaultBuildSettings = BuildSettingsVersion.Latest;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
 
-
         ExtraModuleNames.AddRange( new string[] { "Project57" } );
 	}
 }

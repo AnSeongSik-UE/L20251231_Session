@@ -21,7 +21,7 @@
 #include "Net/UnrealNetwork.h"
 #include "../Network/NetworkUtil.h"
 #include "../InGame/InGameGM.h"
-
+#include "NetCoreClasses.h"
 
 
 // Sets default values
@@ -141,14 +141,15 @@ void ABaseCharacter::DoFire()
 void ABaseCharacter::StartFire()
 {
 	bIsFire = true;
+	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, bIsFire, this);
 	C2S_StartFire();
-
 }
 
 
 void ABaseCharacter::StopFire()
 {
 	bIsFire = false;
+	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, bIsFire, this);
 	C2S_StopFire();
 }
 
@@ -359,6 +360,8 @@ void ABaseCharacter::StartIronSight()
 {
 	bIsIronSight = true;
 	bAiming = true;
+	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, bIsIronSight, this);
+	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, bAiming, this);
 	C2S_StartIronSight();
 }
 
@@ -366,6 +369,8 @@ void ABaseCharacter::StopIronSight()
 {
 	bIsIronSight = false;
 	bAiming = false;
+	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, bIsIronSight, this);
+	MARK_PROPERTY_DIRTY_FROM_NAME(ThisClass, bAiming, this);
 	C2S_StopIronSight();
 }
 
@@ -410,15 +415,28 @@ void ABaseCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
-	DOREPLIFETIME(ABaseCharacter, bSprint);
-	DOREPLIFETIME(ABaseCharacter, CurrentHP);
-	DOREPLIFETIME(ABaseCharacter, MaxHP);
-	DOREPLIFETIME(ABaseCharacter, bIsFire);
-	DOREPLIFETIME(ABaseCharacter, bLeftLean);
-	DOREPLIFETIME(ABaseCharacter, bRightLean);
-	DOREPLIFETIME(ABaseCharacter, bAiming);
-	DOREPLIFETIME(ABaseCharacter, bIsIronSight);
-	DOREPLIFETIME(ABaseCharacter, WeaponState);
+	FDoRepLifetimeParams RepParams;
+	RepParams.bIsPushBased = true;
+
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, bSprint, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, CurrentHP, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, MaxHP, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, bIsFire, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, bLeftLean, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, bRightLean, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, bAiming, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, bIsIronSight, RepParams);
+	DOREPLIFETIME_WITH_PARAMS_FAST(ABaseCharacter, WeaponState, RepParams);
+
+	//DOREPLIFETIME(ABaseCharacter, bSprint);
+	//DOREPLIFETIME(ABaseCharacter, CurrentHP);
+	//DOREPLIFETIME(ABaseCharacter, MaxHP);
+	//DOREPLIFETIME(ABaseCharacter, bIsFire);
+	//DOREPLIFETIME(ABaseCharacter, bLeftLean);
+	//DOREPLIFETIME(ABaseCharacter, bRightLean);
+	//DOREPLIFETIME(ABaseCharacter, bAiming);
+	//DOREPLIFETIME(ABaseCharacter, bIsIronSight);
+	//DOREPLIFETIME(ABaseCharacter, WeaponState);
 }
 
 
